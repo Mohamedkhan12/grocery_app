@@ -10,14 +10,14 @@ var productModal = $("#productModal");
                         '<td>'+ product.name +'</td>'+
                         '<td>'+ product.uom_name +'</td>'+
                         '<td>'+ product.price_per_unit +'</td>'+
-                        '<td><span class="btn btn-xs btn-danger delete-product">Delete</span></td></tr>';
+                        '<td><span class="btn btn-xs btn-info edit-product">Edit</span> ' +'<span class="btn btn-xs btn-danger delete-product">Delete</span></td></tr>';
                 });
                 $("table").find('tbody').empty().html(table);
             }
         });
     });
     
-    /* $(document).on("click", ".edit-product", function (){
+     $(document).on("click", ".edit-product", function (){
         var tr = $(this).closest('tr');
         $("#id").val(tr.data('id'));
         $("#name").val(tr.data('name'));
@@ -25,7 +25,7 @@ var productModal = $("#productModal");
         $("#price").val(tr.data('price'));
         productModal.find('.modal-title').text('Edit Product');
         productModal.modal('show')
-    });*/
+    });
 
 
     // Save Product
@@ -33,6 +33,7 @@ var productModal = $("#productModal");
         // If we found id value in form then update product detail
         var data = $("#productForm").serializeArray();
         var requestPayload = {
+            id: $("#id").val(),
             name: null,
             uom_id: null,
             price_per_unit: null
@@ -51,10 +52,17 @@ var productModal = $("#productModal");
                     break;
             }
         }
-        callApi("POST", productSaveApiUrl, {data: JSON.stringify(requestPayload)
+        if (requestPayload.id && requestPayload.id != "0") {
+        // Update API
+        callApi("POST", productUpdateApiUrl, {data: JSON.stringify(requestPayload)});
+    } else {
+        // Insert API
+        callApi("POST", productSaveApiUrl, {data: JSON.stringify(requestPayload)});
+    }
+        //callApi("POST", productSaveApiUrl, {data: JSON.stringify(requestPayload)
     });
 
-    });
+    
 
     $(document).on("click", ".delete-product", function (){
         var tr = $(this).closest('tr');

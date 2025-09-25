@@ -1,5 +1,6 @@
 // Define your api here
 var productListApiUrl = 'http://127.0.0.1:5000/getProducts';
+var productUpdateApiUrl = "http://127.0.0.1:5000/updateProduct";
 var uomListApiUrl = 'http://127.0.0.1:5000/getUOM';
 var productSaveApiUrl = 'http://127.0.0.1:5000/insertProduct';
 var productDeleteApiUrl = 'http://127.0.0.1:5000/deleteProduct';

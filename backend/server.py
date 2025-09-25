@@ -53,5 +53,13 @@ def insertProduct():
         'product_id': product_id
     })
 
+@app.route('/updateProduct', methods=['POST'])
+def updateProduct():
+    request_payload = json.loads(request.form['data'])
+    product_id = products_dao.update_product(connection, request_payload)
+    return jsonify({
+        'product_id': product_id
+    })
+
 if __name__ == '__main__':
     app.run(port=5000)

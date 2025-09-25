@@ -46,6 +46,16 @@ def delete_product(connection, product_id):
   cursor.execute(query)
   connection.commit()
 
+def update_product(connection, product):
+    cursor = connection.cursor()
+    query = ("UPDATE products SET name=%s, uom_id=%s, price_per_unit=%s "
+             "WHERE product_id=%s")
+    data = (product['name'], product['uom_id'], product['price_per_unit'], product['id'])
+    cursor.execute(query, data)
+    connection.commit()
+    return product['id']
+
+
 if __name__ == '__main__':
   connection = get_sql_connection()
   print(delete_product(connection,6))
